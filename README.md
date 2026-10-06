@@ -23,6 +23,9 @@ Base default rate in the dataset: ~20.3% (the PR-AUC floor for a no-skill model)
 
 **XGBoost** was selected as the final model. At a threshold tuned for **85% recall**, the model achieves 28% precision on the default class — a deliberate trade-off, since in lending a missed default is substantially costlier than flagging a safe loan for additional review.
 
+## Key Findings
+XGBoost outperformed the logistic regression baseline on both ROC-AUC (0.727 vs 0.713) and PR-AUC (0.404 vs 0.381), though the margin was modest — suggesting the relationship between borrower characteristics and default risk is partially but not overwhelmingly non-linear. SHAP analysis of the final XGBoost model identified sub-grade, loan term, interest rate, DTI, and FICO score as the strongest predictors of default, with directions consistent with standard credit risk theory: higher DTI, higher interest rate, longer loan terms, and lower FICO scores all increased predicted risk. At the selected decision threshold (tuned for 85% recall), the model correctly identifies 85% of actual defaults, at a precision of 28% — a deliberate trade-off reflecting the higher real-world cost of a missed default compared to a false alarm.
+
 ## Data
 
 This repo does **not** include the dataset — it's downloaded via the Kaggle API at setup time (see below). The dataset used is the [Lending Club Loan Data](https://www.kaggle.com/datasets/wordsforthewise/lending-club) (`wordsforthewise/lending-club`), ~1.1GB, ~2.2M loan records (2007–2018).
